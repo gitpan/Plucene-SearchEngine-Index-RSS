@@ -6,7 +6,7 @@ use strict;
 use warnings;
 use XML::RSS;
 use Date::Parse;
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 sub gather_data_from_file {
     my ($self, $filename) = @_;
@@ -82,7 +82,14 @@ The title of the article.
 
 =head1 WARNING
 
-Since C<Plucene::SearchEngine::Index> 
+Since C<Plucene::SearchEngine::Index> uses MIME types to determine the
+type of a file, this module doesn't work particularly well using the
+C<File> frontend. It works OK with the C<URL> frontend if the webserver
+sends the right content type header. If not, you may have to fudge it by
+registering your own handlers:
+
+    Plucene::SearchEngine::Index::RSS->register_handler("text/xml");
+    # For instance
 
 =head1 SEE ALSO
 
